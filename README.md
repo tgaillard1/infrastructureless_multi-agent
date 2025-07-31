@@ -4,10 +4,8 @@
 
 This project demonstrates a multi-agent system designed for sophisticated data analysis. It integrates several specialized agents to handle different aspects of the data pipeline, from data retrieval to advanced analytics and machine learning. The system is built to interact with BigQuery, perform complex data manipulations, generate data visualizations and execute machine learning tasks using BigQuery ML (BQML). The agent can generate text response as well as visuals, including plots and graphs for data analysis and exploration.
 
-▶️ **Watch the Video Walkthrough:** [How to build a Data Science agent with ADK](https://www.youtube.com/watch?v=efcUXoMX818)
-
 ## Agent Details
-The key features of the Data Science Multi-Agent include:
+The key features of the Principal Architect Multi-Agent include:
 
 | Feature | Description |
 | --- | --- |
@@ -190,7 +188,7 @@ from the working directory:
 
 ### Example Agent Interaction
 
-Here's a quick example of how a user might interact with the Data Science Multi-Agent System:
+Here's a quick example of how a user might interact with the Principal Architecture Multi-Agent System:
 
 > ´**User:** Hi, What data do you have access to?
 
