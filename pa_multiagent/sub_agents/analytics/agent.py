@@ -21,7 +21,7 @@ from .prompts import return_instructions_ds
 
 root_agent = Agent(
     model=os.getenv("ANALYTICS_AGENT_MODEL"),
-    name="data_science_agent",
+    name="pa_multiagent",
     instruction=return_instructions_ds(),
     code_executor=VertexAiCodeExecutor(
         optimize_data_file=True,

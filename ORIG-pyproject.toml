@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "pa-multiagent"
+name = "data-science"
 version = "0.1"
-description = "PA Multiagent and PA Data QnA Multi-Agent"
-authors = ["Tim Gaillard <tgaillard@google.com>"]
+description = "Data Science and Data QnA Multi-Agent"
+authors = ["Meltem Subasioglu <msubasioglu@google.com>"]
 license = "Apache License 2.0"
 readme = "README.md"
 package-mode = true
