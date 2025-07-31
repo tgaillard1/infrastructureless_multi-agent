@@ -1,4 +1,4 @@
-# Principal Architect Agent - Multiagent Design
+# Principal Architect Agent - Multi-Agent Design
 
 ## Overview
 
