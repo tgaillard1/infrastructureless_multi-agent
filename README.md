@@ -19,7 +19,7 @@ The key features of the Data Science Multi-Agent include:
 
 
 ### Architecture
-![Data Science Architecture](data-science-architecture.png)
+![PA Agent Architecture](pa-multiagent-architecture.png)
 
 ### Key Features
 
