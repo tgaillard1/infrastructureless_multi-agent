@@ -15,8 +15,10 @@ The key features of the Principal Architect Multi-Agent include:
 | **Components:**  | Tools, AgentTools, Session Memory, RAG |
 | **Vertical:**  | All (Applicable across industries needing advanced data analysis) |
 
+### Data Extraction Process
+![Data Extraction Process](data-extract.png)
 
-### Architecture
+### PA Agent Architecture
 ![PA Agent Architecture](pa-multiagent-architecture.png)
 
 ### Key Features
