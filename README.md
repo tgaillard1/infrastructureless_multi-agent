@@ -49,13 +49,28 @@ The key features of the Principal Architect Multi-Agent include:
 1.  **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/google/adk-samples.git
-    cd adk-samples/python/agents/data-science
+    git clone https://github.com/tgaillard1/pa_multiagent.git
+    cd pa_multiagent/
     ```
 
 2.  **Install Dependencies with Poetry:**
 
     ```bash
+    sudo apt update
+    sudo apt install python3-pip
+
+    pip install google-adk
+    pip install poetry
+    pip install python-dotenv
+    pip install google-adk
+    pip install immutabledict
+    pip install regex
+    pip install sqlglot
+    pip install tabulate
+    pip install db-dtypes
+    pip install google-cloud-aiplatform
+    pip install absl-py
+
     poetry install
     ```
 
