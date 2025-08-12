@@ -33,7 +33,7 @@ ask_vertex_retrieval = VertexAiRagRetrieval(
             # please fill in your own rag corpus
             # here is a sample rag corpus for testing purpose
             # e.g. projects/123/locations/us-central1/ragCorpora/456
-            rag_corpus=os.environ.get("RAG_CORPUS")
+            rag_corpus=os.getenv("RAG_CORPUS")
         )
     ],
     similarity_top_k=10,
