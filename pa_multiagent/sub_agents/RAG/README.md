@@ -40,40 +40,13 @@ This diagram outlines the agent's workflow, designed to provide informed and con
 *   **Poetry:** Install Poetry by following the instructions on the official Poetry website: [https://python-poetry.org/docs/](https://python-poetry.org/docs/)
 *   **Git:** Ensure you have git installed.
 
-### Project Setup with Poetry
+### Project Setup 
 
-1.  **Clone the Repository:**
-
-    ```bash
-    git clone https://github.com/google/adk-samples.git
-    cd adk-samples/python/agents/RAG
-    ```
-
-2.  **Install Dependencies with Poetry:**
-
-    ```bash
-    poetry install
-    ```
-
-    This command reads the `pyproject.toml` file and installs all the necessary dependencies into a virtual environment managed by Poetry.
-
-3.  **Activate the Poetry Shell:**
-
-    ```bash
-    poetry env activate
-    ```
-
-    This activates the virtual environment, allowing you to run commands within the project's environment.
-    Make sure the environment is active. If not, you can also activate it through 
-
-     ```bash
-    source .venv/bin/activate 
-    ```   
-4.  **Set up Environment Variables:**
+1.  **Set up Environment Variables:**
     Rename the file ".env.example" to ".env" 
     Follow the steps in the file to set up the environment variables.
 
-5. **Setup Corpus:**
+2. **Setup Corpus:**
     If you have an existing corpus in Vertex AI RAG Engine, please set corpus information in your .env file. For example: RAG_CORPUS='projects/123/locations/us-central1/ragCorpora/456'. 
 
     If you don't have a corpus setup yet, please follow "How to upload my file to my RAG corpus" section. The `prepare_corpus_and_data.py` script will automatically create a corpus (if needed) and update the `RAG_CORPUS` variable in your `.env` file with the resource name of the created or retrieved corpus.
