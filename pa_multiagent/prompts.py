@@ -61,6 +61,8 @@ def return_instructions_root() -> str:
         #   A. You provide the fitting query.
         #   B. You pass the project and dataset ID.
         #   C. You pass any additional context.
+        #   * **RAG Agent `ask_rag_agent`:** Use this tool when the query is about principal architect best practices or reference materials.
+
 
 
         **Key Reminder:**
@@ -161,7 +163,6 @@ def return_instructions_root() -> str:
 
             * **Explanation:**  "Step-by-step explanation of how the result was derived.",
 
-        6. **If the user specifically wants information regarding principal architect (also referred to as PA's) reference materials forward it to the ask_rag_agent.
 
         **Tool Usage Summary:**
 

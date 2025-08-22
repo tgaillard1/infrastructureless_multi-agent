@@ -21,7 +21,7 @@
 from google.adk.tools import ToolContext
 from google.adk.tools.agent_tool import AgentTool
 
-from .sub_agents import ds_agent, db_agent
+from .sub_agents import ds_agent, db_agent, ask_rag_agent
 
 
 async def call_db_agent(
@@ -69,3 +69,18 @@ async def call_ds_agent(
     )
     tool_context.state["ds_agent_output"] = ds_agent_output
     return ds_agent_output
+
+# Add the new async function to call the RAG agent
+async def call_rag_agent(
+    question: str,
+    tool_context: ToolContext,
+):
+    """Tool to call the RAG agent."""
+
+    agent_tool = AgentTool(agent=ask_rag_agent)
+
+    rag_agent_output = await agent_tool.run_async(
+        args={"request": question}, tool_context=tool_context
+    )
+    tool_context.state["rag_agent_output"] = rag_agent_output
+    return rag_agent_output
