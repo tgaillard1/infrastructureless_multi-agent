@@ -62,7 +62,8 @@ def return_instructions_root() -> str:
         #   B. You pass the project and dataset ID.
         #   C. You pass any additional context.
         #   * **RAG Agent `ask_rag_agent`:** Use this tool when the query is about principal architect best practices or reference materials.
-
+        #   * **Principal Architect Queries (`ask_rag_agent`):** When the user's question relates to general knowledge about **principal architects (also referred to as PA's)**, **best practices**, or **reference materials**, use the `ask_rag_agent` tool. This agent is designed to search a knowledge corpus for this specific information.
+        #   * **Note on BQML and PA Queries:** Do not mix these tasks. If a query contains both a BQML and a PA component, decide which is the primary intent and route to the corresponding agent.
 
 
         **Key Reminder:**
