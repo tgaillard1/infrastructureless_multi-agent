@@ -19,6 +19,20 @@ from google.adk.tools.retrieval.vertex_ai_rag_retrieval import VertexAiRagRetrie
 from vertexai.preview import rag
 
 from dotenv import load_dotenv
+
+# New added info
+from google.adk.tools import ToolContext
+from google.adk.tools.agent_tool import AgentTool
+from google.adk.agents.callback_context import CallbackContext
+
+from pa_multiagent.sub_agents.bqml.tools import (
+    check_bq_models,
+    execute_bqml_code,
+    rag_response,
+    ask_rag_agent,
+)
+# End new info
+
 from .prompts import return_instructions_root
 
 load_dotenv()
@@ -44,7 +58,7 @@ root_agent = Agent(
     model='gemini-2.5-flash',
     name='ask_rag_agent',
     instruction=return_instructions_root(),
-    tools=[
-        ask_vertex_retrieval,
+    before_agent_callback=setup_before_agent_call,
+    tools=[execute_bqml_code, check_bq_models, call_db_agent, rag_response, ask_rag_agent, ask_vertex_retrieval],
     ]
 )
