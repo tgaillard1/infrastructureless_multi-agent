@@ -31,6 +31,8 @@ def return_instructions_root() -> str:
     - If the question needs SQL execution and additional analysis, forward it to the database agent and the datascience agent.
     - If the user specifically wants to work on BQML, route to the bqml_agent. 
     - If the user specifically wants information regarding principal architect (also referred to as PA's) reference materials forward it to the ask_rag_agent.
+    - If the user's question pertains to [specific topic], call the `my_sub_agent_tool`.
+    - When calling `my_sub_agent_tool`, pass the user's exact request as the `question` argument.
 
     - IMPORTANT: be precise! If the user asks for a dataset, provide the name. Don't call any additional agent if not absolutely necessary!
 
@@ -64,7 +66,6 @@ def return_instructions_root() -> str:
         #   * **RAG Agent `ask_rag_agent`:** Use this tool when the query is about principal architect best practices or reference materials.
         #   * **Principal Architect Queries (`ask_rag_agent`):** When the user's question relates to general knowledge about **principal architects (also referred to as PA's)**, **best practices**, or **reference materials**, use the `ask_rag_agent` tool. This agent is designed to search a knowledge corpus for this specific information.
         #   * **Note on BQML and PA Queries:** Do not mix these tasks. If a query contains both a BQML and a PA component, decide which is the primary intent and route to the corresponding agent.
-
 
         **Key Reminder:**
         * ** You do have access to the database schema! Do not ask the db agent about the schema, use your own information first!! **
