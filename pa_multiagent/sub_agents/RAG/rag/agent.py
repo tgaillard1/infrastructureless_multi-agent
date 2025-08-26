@@ -59,6 +59,6 @@ root_agent = Agent(
     name='ask_rag_agent',
     instruction=return_instructions_root(),
     before_agent_callback=setup_before_agent_call,
-    tools=[execute_bqml_code, check_bq_models, call_db_agent, rag_response, ask_rag_agent, ask_vertex_retrieval],
+    tools=[execute_bqml_code, check_bq_models, call_db_agent, rag_response, ask_rag_agent, ask_vertex_retrieval,
     ]
 )
