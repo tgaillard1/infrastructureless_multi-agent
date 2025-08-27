@@ -21,8 +21,6 @@ from vertexai.preview import rag
 from dotenv import load_dotenv
 from .prompts import return_instructions_root
 
-# New add
-from pa_multiagent.sub_agents.bqml.tools import ask_rag_agent
 
 load_dotenv()
 
