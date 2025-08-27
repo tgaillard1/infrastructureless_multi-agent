@@ -24,7 +24,8 @@ The key features of the Principal Architect Multi-Agent include:
 ### Key Features
 
 *   **Multi-Agent Architecture:** Utilizes a top-level agent that orchestrates sub-agents, each specialized in a specific task.
-*   **Database Interaction (NL2SQL):** Employs a Database Agent to interact with BigQuery using natural language queries, translating them into SQL.
+*   **Database Interaction:** Employs a Database Agent to interact with BigQuery using natural language queries, translating them into SQL for PA prioritization and tracking purposes.
+*   **Ask PA Agent:** Integrates with multiple data sources to provide relevant and formated data for Principle Architects
 *   **Data Science Analysis (NL2Py):** Includes a Data Science Agent that performs data analysis and visualization using Python, based on natural language instructions.
 *   **Machine Learning (BQML):** Features a BQML Agent that leverages BigQuery ML for training and evaluating machine learning models.
 *   **Code Interpreter Integration:** Supports the use of a Code Interpreter extension in Vertex AI for executing Python code, enabling complex data analysis and manipulation.
