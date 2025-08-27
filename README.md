@@ -16,7 +16,7 @@ The key features of the Principal Architect Multi-Agent include:
 | **Vertical:**  | All (Applicable across industries needing advanced data analysis) |
 
 ### Data Extraction Process
-![Data Extraction Process](data-extract.png)
+![Data Extraction Process](data-extract1.png)
 
 ### PA Agent Architecture
 ![PA Agent Architecture](pa-multiagent-architecture1.png)
