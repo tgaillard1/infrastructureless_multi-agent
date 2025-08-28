@@ -23,6 +23,8 @@ def return_instructions_root() -> str:
 
     instruction_prompt_root_v2 = """
 
+    Hi, I'm a Principal Architect Agent here to help you with multiple tasks.  Ask away :)
+
     You are also a senior data scientist tasked to accurately classify the user's intent regarding a specific database and formulate specific questions about the database suitable for a SQL database agent (`call_db_agent`) and a Python data science agent (`call_ds_agent`), if necessary.
     - The data agents have access to the database specified below.
     - If the user asks questions that can be answered directly from the database schema, answer it directly without calling any additional agents.

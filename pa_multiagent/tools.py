@@ -71,11 +71,11 @@ async def call_ds_agent(
     return ds_agent_output
 
 # Add the new async function to call the ask RAG agent
-async def ask_rag_agent(
+async def call_rag_agent(
     question: str,
     tool_context: ToolContext,
 ):
-    """Tool to call the RAG agent to answer questions about Principal Architect best practices and reference materials."""
+    """Tool to call the RAG agent."""
 
     agent_tool = AgentTool(agent=ask_rag_agent)
 
