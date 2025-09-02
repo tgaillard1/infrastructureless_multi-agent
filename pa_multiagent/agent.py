@@ -32,7 +32,7 @@ from .sub_agents.bigquery.tools import (
     get_database_settings as get_bq_database_settings,
 )
 from .prompts import return_instructions_root
-from .tools import call_db_agent, call_ds_agent, ask_rag_agent
+from .tools import call_db_agent, call_ds_agent
 
 date_today = date.today()
 
