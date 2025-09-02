@@ -76,6 +76,7 @@ root_agent = Agent(
     tools=[
         call_db_agent,
         call_ds_agent,
+        ask_rag_agent, # ⬅️ Add this to the list
         load_artifacts,
     ],
     before_agent_callback=setup_before_agent_call,
