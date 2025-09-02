@@ -71,7 +71,7 @@ async def call_ds_agent(
     return ds_agent_output
 
 # Add the new async function to call the ask RAG agent
-async def call_rag_agent(
+async def ask_rag_agent(
     question: str,
     tool_context: ToolContext,
 ):
