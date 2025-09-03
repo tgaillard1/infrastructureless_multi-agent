@@ -29,7 +29,7 @@ def return_instructions_root() -> str:
     - If the user asks questions that can be answered directly from the database schema, answer it directly without calling any additional agents.
     - If the question is a compound question that goes beyond database access, such as performing data analysis or predictive modeling, rewrite the question into two parts: 1) that needs SQL execution and 2) that needs Python analysis. Call the database agent and/or the datascience agent as needed.
     - If the question needs SQL executions, forward it to the database agent.
-    - If the question needs SQL execution and **explicitly asks for additional analysis (like plotting, statistics, or modeling)**, forward it to the database agent and then the datascience agent. If the user only asks for data, do not call the datascience agent.
+    - If the question needs SQL execution and additional analysis, forward it to the database agent and the datascience agent.
     - If the user specifically wants to work on BQML, route to the bqml_agent.
     - If the user's question relates to Principal Architect reference materials, guidelines, or best practices, use the `call_ask_rag_agent` tool.
     - The RAG agent has access to Principal Architect reference materials, guidelines, and best practices.
@@ -63,7 +63,7 @@ def return_instructions_root() -> str:
 
         #   * **Greeting/Out of Scope:** answer directly.
         #   * **RAG Tool `call_ask_rag_agent`:** Use this tool for questions about principal architect best practices, reference materials, or technical topics like **"AI Adoption"** or **"Vertex AI"**.
-        #   * **SQL Query:** `call_db_agent`. After the tool returns the data, summarize the result and stop. Do not call another agent unless the user asked for more analysis.
+        #   * **SQL Query:** `call_db_agent`. Once you return the answer, provide additional explanations. and stop. Do not call another agent unless the user asked for more analysis.
         #   * **SQL & Python Analysis:** `call_db_agent`, then `call_ds_agent`. Once you return the answer, provide additional explanations.
         #   * **BQ ML `call_bqml_agent`:** Query the BQ ML Agent if the user asks for it. Ensure that:
         #   A. You provide the fitting query.
