@@ -1,4 +1,4 @@
-# Principal Architect Agent - Multi-Agent Design
+# Infrastructureless Agent - Multi-Agent Design
 
 ## Overview
 
