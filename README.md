@@ -19,7 +19,7 @@ The key features of the Principal Architect Multi-Agent include:
 ![Data Extraction Process](data-extract1.png)
 
 ### Infrastructure Agent Architecture
-![Infrastructure Agent Architecture](infra--arch.png)
+![Infrastructure Agent Architecture](infra-arch.png)
 
 ### Key Features
 
