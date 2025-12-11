@@ -13,7 +13,7 @@ The key features of the Principal Architect Multi-Agent include:
 | **Complexity:**  | Advanced |
 | **Agent Type:**  | Multi Agent |
 | **Components:**  | Tools, AgentTools, Session Memory, RAG |
-| **Vertical:**  | All (Applicable across industries needing advanced data analysis) |
+| **Deployment:**  | Applicable across all deployment types, e.g., new, migrations, promotions, etc.|
 
 ### Data Extraction Process
 ![Data Extraction Process](data-extract1.png)
