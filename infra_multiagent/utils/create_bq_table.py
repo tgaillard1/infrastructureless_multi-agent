@@ -99,8 +99,8 @@ def main():
         raise ValueError("BQ_COMPUTE_PROJECT_ID environment variable not set.")
 
     dataset_name = "forecasting_sticker_sales"
-    train_csv_filepath = "pa_multiagent/utils/data/train.csv"
-    test_csv_filepath = "pa_multiagent/utils/data/test.csv"
+    train_csv_filepath = "data_science/utils/data/train.csv"
+    test_csv_filepath = "data_science/utils/data/test.csv"
 
     # Create the dataset if it doesn't exist
     print("Creating dataset.")
