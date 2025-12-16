@@ -20,7 +20,7 @@ import os
 
 import numpy as np
 import pandas as pd
-from data_science.utils.utils import get_env_var, USER_AGENT
+from ...utils.utils import get_env_var, USER_AGENT
 from google.adk.tools import ToolContext
 from google.adk.tools.bigquery.client import get_bigquery_client
 from google.cloud import bigquery

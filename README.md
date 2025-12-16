@@ -71,6 +71,8 @@ The key features of the Principal Architect Multi-Agent include:
     pip install db-dtypes
     pip install google-cloud-aiplatform
     pip install absl-py
+    pip install opentelemetry-exporter-otlp-proto-http
+    pip install opentelemetry-api opentelemetry-sdk
 
     poetry install
     ```
