@@ -39,15 +39,15 @@ def setup_before_agent_call(callback_context: CallbackContext) -> None:
             tools.get_database_settings()
 
 
-database_agent = Agent(
+bigquery_agent = Agent(
     model=os.getenv("BIGQUERY_AGENT_MODEL"),
-    name="database_agent",
+    name="bigquery_agent",
     instruction=return_instructions_bigquery(),
     tools=[
         (
-            chase_db_tools.initial_bq_nl2sql
+            chase_db_tools.bigquery_nl2sql
             if NL2SQL_METHOD == "CHASE"
-            else tools.initial_bq_nl2sql
+            else tools.bigquery_nl2sql
         ),
         tools.run_bigquery_validation,
     ],
