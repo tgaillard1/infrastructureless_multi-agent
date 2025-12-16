@@ -50,8 +50,8 @@ The key features of the Principal Architect Multi-Agent include:
 1.  **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/tgaillard1/pa_multiagent.git
-    cd pa_multiagent/
+    git clone https://github.com/tgaillard1/infrastructureless_multi-agent.git
+    cd infrastructureless_multi-agent/
     ```
 
 2.  **Install Dependencies with Poetry:**
@@ -193,7 +193,7 @@ from the working directory:
 1.  Run agent in CLI:
 
     ```bash
-    poetry run adk run data_science
+    poetry run adk run infra_multiagent
     ```
 
 2.  Run agent with ADK Web UI:
