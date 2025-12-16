@@ -20,7 +20,7 @@ import os
 
 import numpy as np
 import pandas as pd
-from ...utils.utils import get_env_var
+from infra_multiagent.utils.utils import get_env_var
 from google.adk.tools import ToolContext
 from google.adk.tools.bigquery.client import get_bigquery_client
 from google.cloud import bigquery
