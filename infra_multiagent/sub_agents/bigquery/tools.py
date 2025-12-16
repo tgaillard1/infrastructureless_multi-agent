@@ -38,12 +38,10 @@ data_project = get_env_var("BQ_DATA_PROJECT_ID")
 compute_project = get_env_var("BQ_COMPUTE_PROJECT_ID")
 vertex_project = get_env_var("GOOGLE_CLOUD_PROJECT")
 location = get_env_var("GOOGLE_CLOUD_LOCATION")
-http_options = HttpOptions(headers={"user-agent": USER_AGENT})
 llm_client = Client(
     vertexai=True,
     project=vertex_project,
     location=location,
-    http_options=http_options,
 )
 
 MAX_NUM_ROWS = 10000
@@ -107,7 +105,6 @@ def get_bigquery_schema_and_samples():
     client = get_bigquery_client(
         project=compute_project,
         credentials=None,
-        user_agent=USER_AGENT,
     )
     dataset_ref = bigquery.DatasetReference(data_project, dataset_id)
     tables_context = {}

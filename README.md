@@ -150,7 +150,7 @@ The key features of the Principal Architect Multi-Agent include:
         If you wish to use the sample data, continue with the next step.
 
     *   You will find the datasets inside 'data-science/data_science/utils/data/'.
-        Make sure you are still in the working directory (`infra_multiagent`). To load the test and train tables into BigQuery, run the following commands:
+        Make sure you are still in the working directory (`infrastructureless_multi_agent`). To load the test and train tables into BigQuery, run the following commands:
         ```bash
         python3 infra_multiagent/utils/create_bq_table.py
         ```
@@ -163,7 +163,7 @@ The key features of the Principal Architect Multi-Agent include:
     Leave the corpus name empty in the .env file: `BQML_RAG_CORPUS_NAME = ''`. The corpus name will be added automatically once it's created.
 
     To set up the RAG Corpus for your project, run the methods `create_RAG_corpus()` and `ingest_files()` in
-    `infra_multiagent/utils/reference_guide_RAG.py` by running the below command from the working directory:
+    `infra_multiagent/utils/reference_guide_RAG.py` by running the below command from the working directory (`infrastructureless_multi_agent`):
 
     ```bash
     python3 infra_multiagent/utils/reference_guide_RAG.py
