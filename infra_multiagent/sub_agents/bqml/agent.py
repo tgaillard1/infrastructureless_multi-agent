@@ -15,11 +15,11 @@
 """BigQuery ML Agent."""
 import os
 
-from data_science.sub_agents.bigquery.agent import bigquery_agent
-from data_science.sub_agents.bigquery.tools import (
+from infra_multiagent.sub_agents.bigquery.agent import bigquery_agent
+from infra_multiagent.sub_agents.bigquery.tools import (
     get_database_settings as get_bq_database_settings,
 )
-from data_science.sub_agents.bqml.tools import check_bq_models, rag_response
+from infra_multiagent.sub_agents.bqml.tools import check_bq_models, rag_response
 from google.adk.agents import Agent
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.tools import ToolContext

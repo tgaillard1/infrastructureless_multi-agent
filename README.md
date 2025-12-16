@@ -149,7 +149,7 @@ The key features of the Principal Architect Multi-Agent include:
         You can skip the upload steps if you are using your own data. We recommend not adding any production critical datasets to this sample agent.
         If you wish to use the sample data, continue with the next step.
 
-    *   You will find the datasets inside 'data-science/data_science/utils/data/'.
+    *   You will find the datasets inside 'data-science/infra_multiagent/utils/data/'.
         Make sure you are still in the working directory (`infrastructureless_multi_agent`). To load the test and train tables into BigQuery, run the following commands:
         ```bash
         python3 infra_multiagent/utils/create_bq_table.py
@@ -326,7 +326,7 @@ directory, run this command:
 poetry build --format=wheel --output=deployment
 ```
 
-This will create a file named `data_science-0.1-py3-none-any.whl` in the
+This will create a file named `infra_multiagent-0.1-py3-none-any.whl` in the
 `deployment` directory.
 
 Then run the below command. This will create a staging bucket in your GCP project and deploy the agent to Vertex AI Agent Engine:
@@ -403,7 +403,7 @@ python3 deployment/deploy.py --delete --resource_id=RESOURCE_ID
     Experiment with different phrasing and levels of detail.
 *   **Extension:** Extend the multi-agent system with your own AgentTools or sub_agents.
     You can do so by adding additional tools and sub_agents to the root agent inside
-    `agents/data-science/data_science/agent.py`.
+    `agents/data-science/infra_multiagent/agent.py`.
 *   **Partial imports:** If you only need certain capabilities inside the multi-agent system,
     e.g. just the data agent, you can import the data_agent as an AgentTool into your own root agent.
 *   **Model Selection:** Try different language models for both the top-level

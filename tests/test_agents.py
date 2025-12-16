@@ -26,9 +26,9 @@ from google.adk.artifacts import InMemoryArtifactService
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 
-from data_science.agent import root_agent
-from data_science.sub_agents.bqml.agent import root_agent as bqml_agent
-from data_science.sub_agents.bigquery.agent import database_agent
+from infra_multiagent.agent import root_agent
+from infra_multiagent.sub_agents.bqml.agent import root_agent as bqml_agent
+from infra_multiagent.sub_agents.bigquery.agent import database_agent
 
 session_service = InMemorySessionService()
 artifact_service = InMemoryArtifactService() 
