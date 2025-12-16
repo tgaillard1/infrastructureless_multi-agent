@@ -150,9 +150,9 @@ The key features of the Principal Architect Multi-Agent include:
         If you wish to use the sample data, continue with the next step.
 
     *   You will find the datasets inside 'data-science/data_science/utils/data/'.
-        Make sure you are still in the working directory (`agents/data-science`). To load the test and train tables into BigQuery, run the following commands:
+        Make sure you are still in the working directory (`infra_multiagent`). To load the test and train tables into BigQuery, run the following commands:
         ```bash
-        python3 data_science/utils/create_bq_table.py
+        python3 infra_multiagent/utils/create_bq_table.py
         ```
 
 
@@ -163,10 +163,10 @@ The key features of the Principal Architect Multi-Agent include:
     Leave the corpus name empty in the .env file: `BQML_RAG_CORPUS_NAME = ''`. The corpus name will be added automatically once it's created.
 
     To set up the RAG Corpus for your project, run the methods `create_RAG_corpus()` and `ingest_files()` in
-    `data-science/data_science/utils/reference_guide_RAG.py` by running the below command from the working directory:
+    `infra_multiagent/utils/reference_guide_RAG.py` by running the below command from the working directory:
 
     ```bash
-    python3 data_science/utils/reference_guide_RAG.py
+    python3 infra_multiagent/utils/reference_guide_RAG.py
     ```
 
 
@@ -202,7 +202,7 @@ from the working directory:
     ```bash
     poetry run adk web
     ```
-    Select the data_science from the dropdown
+    Select the infra_multiagent from the dropdown
 
 
 
@@ -250,7 +250,7 @@ Here's a quick example of how a user might interact with the Principal Architect
 ## Testing and Evaluation
 
 To run the test and evaluation code, you need a few additional dependencies. Run
-the following Poetry command from the `agents/data-science` directory to install them:
+the following Poetry command from the `infra_multiagent` directory to install them:
 ```bash
 poetry install --with=dev
 ```

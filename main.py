@@ -63,8 +63,8 @@ else:
 # Create FastAPI app with appropriate arguments
 app: FastAPI = get_fast_api_app(**app_args)
 
-app.title = "data_science"
-app.description = "Data Science Agent"
+app.title = "infra_multiagent"
+app.description = "Infrastructure Multi-Agent"
 
 if __name__ == "__main__":
     # Use the PORT environment variable provided by Cloud Run, defaulting to 8080

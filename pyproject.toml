@@ -1,5 +1,5 @@
 [project]
-name = "data-science"
+name = "infra_multiagent"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -37,7 +37,7 @@ requires = ["uv_build>=0.7.19,<0.8.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
-module-name = "data_science"
+module-name = "infra_multiagent"
 module-root = ""
 
 [tool.pytest.ini_options]

@@ -184,7 +184,7 @@ from .tools import call_db_agent, call_ds_agent
 
 root_agent = Agent(
     model=os.getenv("ROOT_AGENT_MODEL"),
-    name="data_science_root_agent",
+    name="infra_multiagent_root_agent",
     instruction=return_instructions_root(),
     global_instruction=(
         f"""
