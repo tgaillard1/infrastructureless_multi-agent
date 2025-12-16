@@ -93,10 +93,9 @@ def initial_bq_nl2sql(
       str: An SQL statement to answer this question.
     """
     print("****** Running agent with ChaseSQL algorithm.")
-    bq_settings = tool_context.state["database_settings"]["bigquery"]
-    bq_schema = bq_settings["schema"]
-    project = bq_settings["data_project_id"]
-    db = bq_settings["dataset_id"]
+    ddl_schema = tool_context.state["database_settings"]["bq_ddl_schema"]
+    project = tool_context.state["database_settings"]["bq_data_project_id"]
+    db = tool_context.state["database_settings"]["bq_dataset_id"]
     transpile_to_bigquery = tool_context.state["database_settings"][
         "transpile_to_bigquery"
     ]
@@ -117,13 +116,13 @@ def initial_bq_nl2sql(
 
     if generate_sql_type == GenerateSQLType.DC.value:
         prompt = DC_PROMPT_TEMPLATE.format(
-            SCHEMA=bq_schema,
+            SCHEMA=ddl_schema,
             QUESTION=question,
             BQ_DATA_PROJECT_ID=BQ_DATA_PROJECT_ID,
         )
     elif generate_sql_type == GenerateSQLType.QP.value:
         prompt = QP_PROMPT_TEMPLATE.format(
-            SCHEMA=bq_schema,
+            SCHEMA=ddl_schema,
             QUESTION=question,
             BQ_DATA_PROJECT_ID=BQ_DATA_PROJECT_ID,
         )
@@ -148,7 +147,7 @@ def initial_bq_nl2sql(
         # pylint: disable=g-bad-todo
         # pylint: enable=g-bad-todo
         responses: str = translator.translate(
-            responses, ddl_schema=bq_schema, db=db, catalog=project
+            responses, ddl_schema=ddl_schema, db=db, catalog=project
         )
 
     return responses

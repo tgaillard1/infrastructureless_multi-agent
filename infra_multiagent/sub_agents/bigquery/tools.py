@@ -202,19 +202,18 @@ sample rows):
 {QUESTION}
 ```
 
-**Think Step-by-Step:** Carefully consider the schema, question, guidelines, and
-best practices outlined above to generate the correct BigQuery SQL.
+**Think Step-by-Step:** Carefully consider the schema, question, guidelines, and best practices outlined above to generate the correct BigQuery SQL.
 
    """
 
-    schema = tool_context.state["database_settings"]["bigquery"]["schema"]
+    ddl_schema = tool_context.state["database_settings"]["bq_ddl_schema"]
 
     prompt = prompt_template.format(
-        MAX_NUM_ROWS=MAX_NUM_ROWS, SCHEMA=schema, QUESTION=question
+        MAX_NUM_ROWS=MAX_NUM_ROWS, SCHEMA=ddl_schema, QUESTION=question
     )
 
     response = llm_client.models.generate_content(
-        model=os.getenv("BASELINE_NL2SQL_MODEL", ""),
+        model=os.getenv("BASELINE_NL2SQL_MODEL"),
         contents=prompt,
         config={"temperature": 0.1},
     )
@@ -223,8 +222,112 @@ best practices outlined above to generate the correct BigQuery SQL.
     if sql:
         sql = sql.replace("```sql", "").replace("```", "").strip()
 
-    logger.debug("bigquery_nl2sql - sql:\n%s", sql)
+    print("\n sql:", sql)
 
     tool_context.state["sql_query"] = sql
 
     return sql
+
+
+def run_bigquery_validation(
+    sql_string: str,
+    tool_context: ToolContext,
+) -> str:
+    """Validates BigQuery SQL syntax and functionality.
+
+    This function validates the provided SQL string by attempting to execute it
+    against BigQuery in dry-run mode. It performs the following checks:
+
+    1. **SQL Cleanup:**  Preprocesses the SQL string using a `cleanup_sql`
+    function
+    2. **DML/DDL Restriction:**  Rejects any SQL queries containing DML or DDL
+       statements (e.g., UPDATE, DELETE, INSERT, CREATE, ALTER) to ensure
+       read-only operations.
+    3. **Syntax and Execution:** Sends the cleaned SQL to BigQuery for validation.
+       If the query is syntactically correct and executable, it retrieves the
+       results.
+    4. **Result Analysis:**  Checks if the query produced any results. If so, it
+       formats the first few rows of the result set for inspection.
+
+    Args:
+        sql_string (str): The SQL query string to validate.
+        tool_context (ToolContext): The tool context to use for validation.
+
+    Returns:
+        str: A message indicating the validation outcome. This includes:
+             - "Valid SQL. Results: ..." if the query is valid and returns data.
+             - "Valid SQL. Query executed successfully (no results)." if the query
+                is valid but returns no data.
+             - "Invalid SQL: ..." if the query is invalid, along with the error
+                message from BigQuery.
+    """
+
+    def cleanup_sql(sql_string):
+        """Processes the SQL string to get a printable, valid SQL string."""
+
+        # 1. Remove backslashes escaping double quotes
+        sql_string = sql_string.replace('\\"', '"')
+
+        # 2. Remove backslashes before newlines (the key fix for this issue)
+        sql_string = sql_string.replace("\\\n", "\n")  # Corrected regex
+
+        # 3. Replace escaped single quotes
+        sql_string = sql_string.replace("\\'", "'")
+
+        # 4. Replace escaped newlines (those not preceded by a backslash)
+        sql_string = sql_string.replace("\\n", "\n")
+
+        # 5. Add limit clause if not present
+        if "limit" not in sql_string.lower():
+            sql_string = sql_string + " limit " + str(MAX_NUM_ROWS)
+
+        return sql_string
+
+    logging.info("Validating SQL: %s", sql_string)
+    sql_string = cleanup_sql(sql_string)
+    logging.info("Validating SQL (after cleanup): %s", sql_string)
+
+    final_result = {"query_result": None, "error_message": None}
+
+    # More restrictive check for BigQuery - disallow DML and DDL
+    if re.search(
+        r"(?i)(update|delete|drop|insert|create|alter|truncate|merge)", sql_string
+    ):
+        final_result["error_message"] = (
+            "Invalid SQL: Contains disallowed DML/DDL operations."
+        )
+        return final_result
+
+    try:
+        query_job = get_bq_client().query(sql_string)
+        results = query_job.result()  # Get the query results
+
+        if results.schema:  # Check if query returned data
+            rows = [
+                {
+                    key: (
+                        value
+                        if not isinstance(value, datetime.date)
+                        else value.strftime("%Y-%m-%d")
+                    )
+                    for (key, value) in row.items()
+                }
+                for row in results
+            ][:MAX_NUM_ROWS]  # Convert BigQuery RowIterator to list of dicts
+            final_result["query_result"] = rows
+
+            tool_context.state["query_result"] = rows
+
+        else:
+            final_result["error_message"] = (
+                "Valid SQL. Query executed successfully (no results)."
+            )
+
+    except (
+        Exception
+    ) as e:  # Catch generic exceptions from BigQuery  # pylylint: disable=broad-exception-caught
+        final_result["error_message"] = f"Invalid SQL: {e}"
+
+    print("\n run_bigquery_validation final_result: \n", final_result)
+
+    return final_result

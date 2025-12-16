@@ -12,7 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tools for the ADK Sampmles Data Science Agent."""
+"""Top level agent for pa agent multi-agents.
+
+-- it get data from database (e.g., BQ) using NL2SQL
+-- then, it use NL2Py to do further data analysis as needed
+"""
+
 from google.adk.tools import ToolContext
 from google.adk.tools.agent_tool import AgentTool
 

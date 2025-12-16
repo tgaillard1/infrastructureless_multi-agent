@@ -171,36 +171,27 @@ def get_dataset_definitions_for_instructions() -> str:
 
 def load_database_settings_in_context(callback_context: CallbackContext):
     """Load database settings into the callback context on first use."""
-    if "database_settings" not in callback_context.state:
-        callback_context.state["database_settings"] = _database_settings
-    # setting up database settings in session.state
-    if "database_settings" not in callback_context.state:
-        db_settings = dict()
-        db_settings["use_database"] = "BigQuery"
-        callback_context.state["all_db_settings"] = db_settings
+    # Load database settings from the initialized config
+    callback_context.state["database_settings"] = _database_settings
 
-    # setting up schema in instruction
-    if callback_context.state["all_db_settings"]["use_database"] == "BigQuery":
-        callback_context.state["database_settings"] = get_bq_database_settings()
-        schema = callback_context.state["database_settings"]["bq_ddl_schema"]
-
-        callback_context._invocation_context.agent.instruction = (
-            return_instructions_root()
-            + f"""
-
-    --------- The BigQuery schema of the relevant data with a few sample rows. ---------
-    {schema}
-
-    """
-        )
+    # Dynamically inject the dataset definitions into the agent's instruction
+    callback_context._invocation_context.agent.instruction = (
+        return_instructions_root() + get_dataset_definitions_for_instructions()
+    )
 
 
 from .tools import call_db_agent, call_ds_agent
 
 root_agent = Agent(
     model=os.getenv("ROOT_AGENT_MODEL"),
-    name="db_ds_multiagent",
+    name="data_science_root_agent",
     instruction=return_instructions_root(),
+    global_instruction=(
+        f"""
+        You are a Data Science and Data Analytics Multi Agent System.
+        Todays date: {date.today()}
+        """
+    ),
     sub_agents=[bqml_agent, ask_rag_agent],
     tools=[call_db_agent, call_ds_agent, call_ask_rag_agent, load_artifacts],
     before_agent_callback=load_database_settings_in_context,
@@ -211,6 +202,3 @@ root_agent = Agent(
 # Initialize dataset configurations and database info before the agent starts
 _dataset_config = load_dataset_config()
 _database_settings = init_database_settings(_dataset_config)
-
-
-# The root_agent is now defined above.
