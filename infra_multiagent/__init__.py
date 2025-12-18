@@ -12,13 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .agent import root_agent
-from .sub_agents import ask_rag_agent, bqml_agent, db_agent, ds_agent
+import os
 
-__all__ = [
-    "root_agent",
-    "db_agent",
-    "ds_agent",
-    "bqml_agent",
-    "ask_rag_agent",
-]
+from . import agent
+
+__all__ = ["agent"]

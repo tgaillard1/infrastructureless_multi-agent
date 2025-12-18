@@ -16,7 +16,6 @@ from .alloydb.agent import alloydb_agent
 from .analytics.agent import analytics_agent
 from .bigquery.agent import bigquery_agent
 from .bqml.agent import root_agent as bqml_agent
-from .bigquery.agent import database_agent as db_agent
 from .RAG.rag.agent import root_agent as ask_rag_agent
 
-__all__ = ["bqml_agent", "analytics_agent", "bigquery_agent", "alloydb_agent", "db_agent", "ask_rag_agent"]
+__all__ = ["bqml_agent", "analytics_agent", "bigquery_agent", "alloydb_agent", "ask_rag_agent"]
