@@ -23,10 +23,10 @@ import logging
 import os
 from datetime import date
 
-from google.adk.agents import Agent
+from google.adk.agents import LlmAgent
 from google.adk.agents.callback_context import CallbackContext
 
-from google.adk.tools import load_artifacts
+# from google.adk.tools import load_artifacts
 from google.genai import types
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
@@ -36,16 +36,14 @@ from opentelemetry.sdk import trace as trace_sdk
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
 from .prompts import return_instructions_root
-from .sub_agents import ask_rag_agent, bqml_agent
+from .sub_agents import bqml_agent
 from .sub_agents.alloydb.tools import (
     get_database_settings as get_alloydb_database_settings,
 )
 from .sub_agents.bigquery.tools import (
     get_database_settings as get_bq_database_settings,
 )
-from .tools import (
-    call_ask_rag_agent,
-)
+from .tools import call_alloydb_agent, call_analytics_agent, call_bigquery_agent
 
 # Configure Weave endpoint and authentication
 _WANDB_BASE_URL = "https://trace.wandb.ai"
@@ -171,34 +169,44 @@ def get_dataset_definitions_for_instructions() -> str:
 
 def load_database_settings_in_context(callback_context: CallbackContext):
     """Load database settings into the callback context on first use."""
-    # Load database settings from the initialized config
-    callback_context.state["database_settings"] = _database_settings
+    if "database_settings" not in callback_context.state:
+        callback_context.state["database_settings"] = _database_settings
 
-    # Dynamically inject the dataset definitions into the agent's instruction
-    callback_context._invocation_context.agent.instruction = (
-        return_instructions_root() + get_dataset_definitions_for_instructions()
+
+def get_root_agent() -> LlmAgent:
+    tools = [call_analytics_agent]
+    sub_agents = []
+    for dataset in _dataset_config["datasets"]:
+        if dataset["type"] == "bigquery":
+            tools.append(call_bigquery_agent)
+            sub_agents.append(bqml_agent)
+        elif dataset["type"] == "alloydb":
+            tools.append(call_alloydb_agent)
+
+    agent = LlmAgent(
+        model=os.getenv("ROOT_AGENT_MODEL", "gemini-2.5-flash"),
+        name="data_science_root_agent",
+        instruction=return_instructions_root()
+        + get_dataset_definitions_for_instructions(),
+        global_instruction=(
+            f"""
+            You are a Data Science and Data Analytics Multi Agent System.
+            Todays date: {date.today()}
+            """
+        ),
+        sub_agents=sub_agents,  # type: ignore
+        tools=tools,  # type: ignore
+        before_agent_callback=load_database_settings_in_context,
+        generate_content_config=types.GenerateContentConfig(temperature=0.01),
     )
 
-
-from .tools import call_db_agent, call_ds_agent
-
-root_agent = Agent(
-    model=os.getenv("ROOT_AGENT_MODEL"),
-    name="infra_multiagent_root_agent",
-    instruction=return_instructions_root(),
-    global_instruction=(
-        f"""
-        You are a Data Science and Data Analytics Multi Agent System.
-        Todays date: {date.today()}
-        """
-    ),
-    sub_agents=[bqml_agent, ask_rag_agent],
-    tools=[call_db_agent, call_ds_agent, call_ask_rag_agent, load_artifacts],
-    before_agent_callback=load_database_settings_in_context,
-    generate_content_config=types.GenerateContentConfig(temperature=0.01),
-)
+    return agent
 
 
 # Initialize dataset configurations and database info before the agent starts
 _dataset_config = load_dataset_config()
 _database_settings = init_database_settings(_dataset_config)
+
+
+# Fetch the root agent
+root_agent = get_root_agent()
