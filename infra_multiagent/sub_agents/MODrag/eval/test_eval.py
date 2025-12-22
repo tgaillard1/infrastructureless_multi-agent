@@ -12,10 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .bqml.agent import root_agent as bqml_agent
-from .analytics.agent import root_agent as ds_agent
-from .bigquery.agent import database_agent as db_agent
-from .RAG.rag.agent import root_agent as ask_rag_agent
+import pathlib
+
+import dotenv
+import pytest
+from google.adk.evaluation.agent_evaluator import AgentEvaluator
+
+pytest_plugins = ("pytest_asyncio",)
 
 
-__all__ = ["bqml_agent", "ds_agent", "db_agent", "ask_rag_agent"]
+@pytest.fixture(scope="session", autouse=True)
+def load_env():
+    dotenv.load_dotenv()
+
+
+@pytest.mark.asyncio
+async def test_eval_full_conversation():
+    """Test the agent's basic ability on a few examples."""
+    await AgentEvaluator.evaluate(
+        agent_module="rag",
+        eval_dataset_file_path_or_dir=str(
+            pathlib.Path(__file__).parent / "data/conversation.test.json"
+        ),
+        num_runs=1,
+    )
