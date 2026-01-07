@@ -16,7 +16,7 @@ The key features of the Principal Architect Multi-Agent include:
 | **Deployment:**  | Applicable across all deployment types, e.g., new, migrations, promotions, etc.|
 
 ### GCP Foundational and Application Data 
-![GCP Foundational Data](infra-foundation.png)
+![GCP Foundational Data](infra-foundation1.png)
 ![GCP Application Data](app-foundation.png)
 
 ### Infrastructure Agent Architecture
