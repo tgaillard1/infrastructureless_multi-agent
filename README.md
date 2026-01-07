@@ -20,7 +20,7 @@ The key features of the Principal Architect Multi-Agent include:
 ![GCP Application Data](app-foundation.png)
 
 ### Infrastructure Agent Architecture
-![Infrastructure Agent Architecture](infra-archXX.png)
+![Infrastructure Agent Architecture](infra-arch.png)
 
 ### Key Features
 
